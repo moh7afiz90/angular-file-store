@@ -7,7 +7,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - Firebase
 - AngularFire2
-- Materlize CSS
+- Materialize CSS
 - Font Awesome
 - jQuery
 
