@@ -11,7 +11,9 @@ export class ItemService {
   constructor(public afs: AngularFirestore) {
     // valueChange() return collection data from Firebase
     // this.items = this.afs.collection('items').valueChanges();
-    this.items = this.afs.collection('items').snapshotChanges().map(changes => {
+    // ref: to sort item list
+    this.itemsCollection = this.afs.collection('items', ref => ref.orderBy('title', 'asc'));
+    this.items = this.itemsCollection.snapshotChanges().map(changes => {
       return changes.map(a => {
         const data = a.payload.doc.data() as Item;
         data.id = a.payload.doc.id;
@@ -22,6 +24,10 @@ export class ItemService {
 
   getItems() {
     return this.items;
+  }
+
+  addItem(item: Item) {
+    this.itemsCollection.add(item);
   }
 }
 
