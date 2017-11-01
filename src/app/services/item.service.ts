@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 export class ItemService {
   itemsCollection: AngularFirestoreCollection<Item>;
   items: Observable<Item[]>;
+  itemDoc: AngularFirestoreDocument<Item>;
 
   constructor(public afs: AngularFirestore) {
     // valueChange() return collection data from Firebase
@@ -29,6 +30,18 @@ export class ItemService {
   addItem(item: Item) {
     this.itemsCollection.add(item);
   }
+
+  deleteItem(item: Item) {
+    this.itemDoc = this.afs.doc(`items/${item.id}`);
+    this.itemDoc.delete();
+  }
+
+  updateItem(item: Item) {
+    this.itemDoc = this.afs.doc(`items/${item.id}`);
+    this.itemDoc.update(item);
+  }
+
+
 }
 
 
